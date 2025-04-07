@@ -12,10 +12,14 @@ a=$1;b=$3;c=$2
 else
 a=$1;b=$2;c=$3
 fi
-if [ `expr $a + $b ` -lt $c ]
+if [ `expr $a + $b ` -gt $c ]
 then
-echo "triangle cant be formed"
-elif [ $a -eq $b -a $b -eq $c ]
+echo "triangle can be formed"
+else
+echo "triangle cannot be formed"
+exit 1
+fi
+if [ $a -eq $b -a $b -eq $c ]
 then
 echo "equilateral triangle"
 elif [ $a -eq $b -o $b -eq $c -o $c -eq $a ]
@@ -25,7 +29,7 @@ elif [ `expr $a \* $a + $b \* $b` -eq `expr $c \* $c` ]
 then
 echo " its a right angled triangle"
 else
-echo "Triangle can be formed"
+echo "its a normal triangle"
 fi
 
 fi

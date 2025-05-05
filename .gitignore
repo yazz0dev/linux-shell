@@ -1,0 +1,11 @@
+# Ignore everything by default
+*
+
+# But DO NOT ignore directories (so git can look inside them)
+!*/
+
+# And DO NOT ignore files ending with .sh
+!*.sh
+
+# Also, DO NOT ignore the .gitignore file itself!
+!.gitignore

@@ -11,5 +11,5 @@ do
 tail -n 1 file >> rfile
 l=`expr $l - 1`
 head -n $l file > temp
+mv temp file
 done
-echo "no.of line : $l "

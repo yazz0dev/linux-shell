@@ -1,11 +1,9 @@
-echo " Directory of $(pwd)"
-ls -lnA --time-style='+%m/%d/%Y %I:%M %p' | awk '
-NR > 1 { 
-    filename=$9; for(i=10;i<=NF;i++) filename=filename" "$i; 
-    if [ substr($1,1,1) -eq "d") {
-        echo "%s %s %s   <DIR>       %s\n", $6, $7, $8,    filename
-    } else if (substr($1,1,1) -eq "-") {
-        echo "%s %s %s %12d %s\n", $6, $7, $8, $5,   filename
-    }
-}
-'
+echo " Directory of $(pwd)\n"
+
+ls -l --time-style=+"%Y/%m/%d %I:%M %p" | tail -n +2 | while read perms links owner group size date time ampm name; do
+    case "$perms" in
+        d*) echo "$date $time $ampm   <DIR>       $name" ;;
+        *)  echo "$date $time $ampm        $size $name" ;;
+    esac
+done
+

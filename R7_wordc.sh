@@ -1,8 +1,7 @@
-if [ $# -ne 1 ]; then
-echo " Syntax is $0 <filename> "
+if [ $# -gt 1 ]; then
+echo "Syntax is $0 <filename>"
 exit 0
 fi
-
 tt=`tty`
 exec<$1
 
@@ -16,5 +15,3 @@ done
 echo "No.of words is $nowd and No.of lines are $nol"
 
 exec<$tt
-
-exit 0

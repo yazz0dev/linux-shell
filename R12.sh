@@ -1,13 +1,12 @@
 if [ $# -ne 2 ]; then
-echo "Syntaxi is $0 <file> <word to delete>"
+echo "Syntax is $0 <file> <word to delete>"
 exit 1
 fi
 
-sed -i "s/\b$2\b//g" "$1"
-
-if [ $? -eq 0 ]
+if grep -q "\b$2\b" "$1"  
 then
-echo " $2 deleted from $1 succesfully"
+echo "$2 deleted from $1 succesfully"
+sed -i "/\b$2\b/d" "$1"
 else
 echo "error deleting $2 from $1"
 fi

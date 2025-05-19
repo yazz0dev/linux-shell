@@ -6,7 +6,7 @@ cd $1
 for file in *  
 do
 if [ -f $file  ]; then
-mv $file $$$file
+mv $file $file.$$
 fi
 done
 cd ..

@@ -3,12 +3,11 @@ echo "Syntax is $0 <file> <word to delete>"
 exit 1
 fi
 
-if grep -q "\b$2\b" "$1"  
+if grep -q "$2" "$1"  
 then
-echo "$2 deleted from $1 succesfully"
-sed -i "/\b$2\b/d" "$1"
+echo "$2 deleted from $1 succesfully.\n\nHere is the new file content:"
+grep -v "$2" "$1"
 else
 echo "error deleting $2 from $1"
 fi
-
 exit 0 

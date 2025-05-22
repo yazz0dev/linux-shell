@@ -4,5 +4,21 @@ clear
 echo " ---------- "
 read op
 case $opt in 
-1) for f in 
+1) for f in *
+do
+if [ -f $f ]
+then
+echo $f
+fi
+done 
+;;
+2) for f in *
+do
+if [ -d $f ]
+then echA 
+echo $f
+fi done
+;;
+3)
+
 

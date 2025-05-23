@@ -85,7 +85,7 @@ fi
 done
 ;;
 7)
-echo "\n\nFILES RWX TO OWNER"
+echo "\nFILES RWX TO OWNER"
 for f in *
 do
 if [ -f $f ]

@@ -1,5 +1,4 @@
-r=`expr $# % 2`
-if [ $r -ne 0 ]; then
+if [ $# -le 2 -o `expr $# % 2` -ne 0 ]; then
 echo "wrong syntax"
 exit 1
 fi

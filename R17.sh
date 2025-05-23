@@ -3,7 +3,7 @@ then
  echo "Syntax is <$0> <n> <r>"
  exit 1
 fi
-set -xv
+
 fact () 
 {
   n=$1
@@ -14,20 +14,15 @@ fact ()
     f=`expr $f \* $i`
     i=`expr $i + 1`
   done
-  echo $f
+  return $f
 }
-
 
 fact $1
 np=$? 
-
 fact $2
 rp=$?
-
 fact `expr $1 - $2`
 nrp=$?
-
 den=`expr $rp \* $nrp`
-nCr=`expr $np / $den`
-
-echo "nC$2 = $nCr"
+ncr=`expr $np / $den`
+echo "$1C$2 = $ncr"

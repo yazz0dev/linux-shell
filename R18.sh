@@ -1,79 +1,107 @@
-op=0 
-
-while [ "$op" -ne 8 ]; do
-    clear
-    echo " MENU "
-    echo "1. List Files"
-    echo "2. List Directories"
-    echo "3. List Other (symlinks, devices, etc.)"
-    echo "4. List files readable by User, Group, and Other"
-    echo "5. List files with rwx permission for Owner"
-    echo "6. Add rwx permission to Owner for all files"
-    echo "7. Add execute permission to User, Group, Other for all items"
-    echo "8. Exit"
-    echo -n "Enter your option: "
-    read op 
-
-    case "$op" in
-        1)
-            echo "--- Files ---"
-            for f in *; do
-                if [ -f "$f" ]; then 
-                    echo "$f"
-                fi
-            done
-            ;;
-        2)
-            echo "--- Directories ---"
-            for f in *; do
-                if [ -d "$f" ]; then y
-                    echo "$f"
-                fi
-            done
-            ;;
-        3)
-            echo "--- Other (symlinks, devices, etc.) ---"
-            for f in *; do
-                
-                if [ ! -d "$f" ] && [ ! -f "$f" ]; then
-                    echo "$f"
-                fi
-            done
-            ;;
-        4)
-            echo "--- Files readable by User, Group, Other ---"
-            for f in *; do
-                if [ -f "$f" ]; then 
-                    perms=$(ls -ld "$f" | awk '{print $1}') 
-                    if [ "${perms:1:1}" = "r" ] && \
-                       [ "${perms:4:1}" = "r" ] && \
-                       [ "${perms:7:1}" = "r" ]; then
-                        echo "$f"
-                    fi
-                fi
-            done
-            ;;
-        5)
-            echo "--- Files with rwx for Owner ---"
-            for f in *; do
-                if [ -f "$f" ]; then 
-                    perms=$(ls -ld "$f" | awk '{print $1}') 
-                    if [ "${perms:1:3}" = "rwx" ]; then
-                        echo "$f"
-                    fi
-                fi
-            done
-            ;;
-        8)
-            echo "Exiting..."
-            ;;
-    esac
-
-    if [ "$op" -ne 8 ]; then
-        echo ""
-        read -p "Press Enter to continue..."
-    fi
-
+opt=0
+while [ $opt -le 7 ]
+do
+echo "1. ordinary files \n2.Directory files \n3.special files \n4.files readable to ugo"
+echo "5.files writable to ugo \n6.files executable to ugo \n7.files with rwx to owner \n8.exit"
+echo "\nEnter your Option: "
+read opt
+case $opt in
+1)
+echo "\nORDINARY FILES"
+for f in *
+do
+if [ -f $f ]
+then
+echo -n "$f "
+fi
 done
-
-echo "Program terminated."
+;;
+2)
+echo "\n DIRECTORY FILES"
+for f in *
+do
+if [ -d $f ]
+then
+echo $f
+fi
+done
+;;
+3)
+echo "\n SPECIAL FILES"
+for f in *
+do
+if [ ! -d $f -a ! -f $f ]
+then
+echo $f
+fi
+done
+;;
+4)
+echo "\n FILES READABLE TO UGO"
+for f in *
+do
+if [ -f $f ]
+then
+u=`ls -l $f | cut -c 2-2`
+g=`ls -l $f | cut -c 5-5`
+o=`ls -l $f | cut -c 8-8`
+if [ $u = "r" -a $g = "r" -a $o = "r" ]
+then 
+echo $f
+fi
+fi
+done
+;;
+5)
+echo "\nFILES WRITABLE TO UGO"
+for f in *
+do
+if [ -f $f ] 
+then
+u=`ls -l $f | cut -c 3-3`
+g=`ls -l $f | cut -c 6-6`
+o=`ls -l $f | cut -c 9-9`
+if [ $u = "w" -a $g = "w" -a $o = "w" ]
+then 
+echo $f
+fi
+fi
+done
+;;
+6)
+echo "\nFILES EXECUTABLE TO UGO"
+for f in *
+do
+if [ -f $f ] 
+then
+u=`ls -l $f | cut -c 4-4`
+g=`ls -l $f | cut -c 7-7`
+o=`ls -l $f | cut -c 10-10`
+if [ $u = "x" -a $g = "x" -a $o = "x" ]
+then 
+echo $f
+fi
+fi
+done
+;;
+7)
+echo "\n\nFILES RWX TO OWNER"
+for f in *
+do
+if [ -f $f ]
+then
+rwx=`ls -l $f | cut -c 2-4`
+if [ $rwx = "rwx" ]
+then
+echo $f
+fi
+fi
+done
+;;
+8) exit 0
+;;
+esac
+echo "\nPress enter to continue"
+read x
+clear
+done

@@ -64,26 +64,8 @@ while [ "$op" -ne 8 ]; do
                 fi
             done
             ;;
-        6)
-            echo "--- Adding rwx to owner for all files ---"
-            for f in *; do
-                if [ -f "$f" ]; then 
-                    chmod u+rwx "$f"
-                    echo "Set u+rwx for $f"
-                fi
-            done
-            ;;
-        7)
-            echo "--- Adding execute to user, group, other for all items ---"
-            for f in *; do
-                echo "Set a+x for $f"
-            done
-            ;;
         8)
             echo "Exiting..."
-            ;;
-        *)
-            echo "Invalid option. Please try again."
             ;;
     esac
 

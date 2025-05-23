@@ -3,32 +3,31 @@ then
  echo "Syntax is <$0> <n> <r>"
  exit 1
 fi
-
-fact() {
+set -xv
+fact () 
+{
   n=$1
   i=1
-  p=1
+  f=1
   while [ $i -le $n ]
   do
-    p=`expr $p \* $i`
+    f=`expr $f \* $i`
     i=`expr $i + 1`
   done
-  return $p 
+  echo $f
 }
 
-n=$1
-r=$2
 
-fact $n
+fact $1
 np=$? 
 
-fact $r
+fact $2
 rp=$?
 
-fact `expr $n - $r`
+fact `expr $1 - $2`
 nrp=$?
 
 den=`expr $rp \* $nrp`
 nCr=`expr $np / $den`
 
-echo "$nC$r = $nCr"
+echo "nC$2 = $nCr"
